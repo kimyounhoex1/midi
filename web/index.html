@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MIDI Instrument API</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>MIDI Instrument API</h1>
+      <div class="toolbar">
+        <select id="instrument">
+          <option value="piano">Piano</option>
+          <option value="drums">Drums</option>
+          <option value="guitar">Guitar</option>
+        </select>
+        <button id="start">Start Audio</button>
+      </div>
+      <div class="keys">
+        <button data-note="60">C4</button>
+        <button data-note="62">D4</button>
+        <button data-note="64">E4</button>
+        <button data-note="65">F4</button>
+        <button data-note="67">G4</button>
+      </div>
+      <p id="status">WASM 빌드 후 Start Audio를 누르면 소리가 납니다.</p>
+    </main>
+
+    <script src="./dist/midi_wasm.js"></script>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

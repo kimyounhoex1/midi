@@ -1,0 +1,7 @@
+build/
+build-*/
+web/dist/
+node_modules/
+.ai/
+.vscode/
+.DS_Store

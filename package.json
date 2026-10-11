@@ -1,0 +1,14 @@
+{
+  "name": "midi-instrument-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "npx http-server web -c-1",
+    "build:wasm": "emcmake cmake -S . -B build-wasm -DMIDI_BUILD_APP=OFF && cmake --build build-wasm --target midi_wasm",
+    "test:core": "cmake -S . -B build-core -DMIDI_BUILD_APP=OFF && cmake --build build-core --target midi_core_tests && ctest --test-dir build-core --output-on-failure"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
