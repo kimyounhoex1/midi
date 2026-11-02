@@ -1,5 +1,7 @@
 #include "MidiInstrumentEngine.h"
 
+#include "PianoNotes.h"
+
 #include <algorithm>
 #include <cmath>
 #include <filesystem>
@@ -46,6 +48,12 @@ void MidiInstrumentEngine::setInstrument(InstrumentType newInstrument)
 
 void MidiInstrumentEngine::noteOn(int midiNote, float velocity)
 {
+    if (midiNote < 0 || midiNote > 127 || !std::isfinite(velocity) || velocity <= 0.0f)
+        return;
+
+    if (instrument == InstrumentType::Piano && !PianoNotes::contains(midiNote))
+        return;
+
     const auto* sample = currentBank().findSampleForMidiNote(midiNote);
     if (sample == nullptr)
         return;
@@ -67,6 +75,9 @@ void MidiInstrumentEngine::noteOn(int midiNote, float velocity)
 
 void MidiInstrumentEngine::noteOff(int midiNote)
 {
+    if (midiNote < 0 || midiNote > 127)
+        return;
+
     for (auto& voice : voices)
     {
         if (voice.active && voice.midiNote == midiNote)

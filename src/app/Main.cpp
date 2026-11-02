@@ -14,10 +14,10 @@ class MainComponent final : public juce::AudioAppComponent {
     instrumentBox.setSelectedId(1);
     instrumentBox.onChange = [this] {
       const auto id = instrumentBox.getSelectedId();
-      engine.setInstrument(: id == 1 ? InstrumentType::Piano
+      engine.setInstrument(id == 1   ? InstrumentType::Piano
                            : id == 2 ? InstrumentType::Drum
                            : id == 3 ? InstrumentType::Guitar
-                           : id == 4 ? InstrumentType::Base);
+                                     : InstrumentType::Base);
     };
 
     addButton(pianoButton, "C4", 60);
@@ -79,10 +79,8 @@ class MainComponent final : public juce::AudioAppComponent {
 
 class MidiInstrumentApplication final : public juce::JUCEApplication {
  public:
-  const juce::String getApplicationName() override {
-    return "MIDI Instrument API";
-  }
-  const juce::String getApplicationVersion() override { return "0.1.0"; }
+  const juce::String getApplicationName() override { return m_sAppName; }
+  const juce::String getApplicationVersion() override { return m_sBuildVer; }
 
   void initialise(const juce::String&) override {
     mainWindow = std::make_unique<MainWindow>(getApplicationName());
@@ -91,6 +89,8 @@ class MidiInstrumentApplication final : public juce::JUCEApplication {
   void shutdown() override { mainWindow = nullptr; }
 
  private:
+  const std::string m_sAppName = "MIDI Instrument API";
+  const std::string m_sBuildVer = "0.1.0";
   class MainWindow final : public juce::DocumentWindow {
    public:
     explicit MainWindow(juce::String name)

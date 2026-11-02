@@ -1,4 +1,5 @@
 import { MidiApi } from "./midi-api.js";
+import { createPianoKeyboard } from "./piano-keyboard.js";
 
 let audioContext;
 let api;
@@ -7,6 +8,9 @@ let processor;
 const startButton = document.querySelector("#start");
 const statusText = document.querySelector("#status");
 const instrumentSelect = document.querySelector("#instrument");
+const pianoKeyboard = document.querySelector("#piano-keyboard");
+
+createPianoKeyboard(pianoKeyboard, () => api);
 
 startButton.addEventListener("click", async () => {
   audioContext = new AudioContext();
@@ -24,24 +28,8 @@ startButton.addEventListener("click", async () => {
   processor.connect(audioContext.destination);
 
   api.setInstrument(instrumentSelect.value);
+  instrumentSelect.value = "piano";
+  instrumentSelect.disabled = true;
   startButton.disabled = true;
   statusText.textContent = "준비 완료";
-});
-
-instrumentSelect.addEventListener("change", () => {
-  api?.setInstrument(instrumentSelect.value);
-});
-
-document.querySelectorAll("[data-note]").forEach((button) => {
-  button.addEventListener("pointerdown", () => {
-    api?.noteOn(Number(button.dataset.note), 0.9);
-  });
-
-  button.addEventListener("pointerup", () => {
-    api?.noteOff(Number(button.dataset.note));
-  });
-
-  button.addEventListener("pointerleave", () => {
-    api?.noteOff(Number(button.dataset.note));
-  });
 });

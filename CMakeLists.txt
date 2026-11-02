@@ -12,6 +12,7 @@ option(MIDI_FETCH_JUCE "Download JUCE with FetchContent when building the app" O
 
 add_library(midi_core
     src/core/MidiInstrumentEngine.cpp
+    src/core/PianoNotes.cpp
     src/core/SampleBank.cpp
 )
 
@@ -21,7 +22,7 @@ target_include_directories(midi_core
 )
 
 if(MIDI_BUILD_TESTS)
-    add_executable(midi_core_tests tests/MidiInstrumentEngineTests.cpp)
+    add_executable(midi_core_tests tests/core/MidiInstrumentEngineTests.cpp)
     target_link_libraries(midi_core_tests PRIVATE midi_core)
     enable_testing()
     add_test(NAME midi_core_tests COMMAND midi_core_tests)

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MIDI Instrument API</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="midi-tool">
+      <nav class="page-nav">
+        <a href="/">Home</a>
+      </nav>
+
+      <h1>MIDI Instrument API</h1>
+      <div class="toolbar">
+        <label class="instrument-label" for="instrument">Instrument</label>
+        <select id="instrument"><option value="piano">Piano</option></select>
+        <button id="start">Start Audio</button>
+      </div>
+      <div class="piano-scroll" aria-label="88건반 피아노">
+        <div id="piano-keyboard" class="piano-keyboard"></div>
+      </div>
+      <p id="status">WASM 빌드 후 Start Audio를 누르고 건반을 누르세요.</p>
+    </main>
+
+    <script src="../dist/midi_wasm.js"></script>
+    <script type="module" src="../main.js"></script>
+  </body>
+</html>

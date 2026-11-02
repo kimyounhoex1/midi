@@ -4,4 +4,9 @@ web/dist/
 node_modules/
 .ai/
 .vscode/
+.ai-runs/
+.local/
+__pycache__/
 .DS_Store
+*.md
+*.json

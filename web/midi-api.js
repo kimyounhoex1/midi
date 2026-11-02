@@ -39,6 +39,17 @@ export class MidiApi {
     this.module._midi_note_off(midiNote);
   }
 
+  pianoNoteOn(midiNote, velocity = 0.8) {
+    assertPianoMidiNote(midiNote);
+    this.module._midi_set_instrument(0);
+    this.module._midi_note_on(midiNote, velocity);
+  }
+
+  pianoNoteOff(midiNote) {
+    assertPianoMidiNote(midiNote);
+    this.module._midi_note_off(midiNote);
+  }
+
   allNotesOff() {
     this.module._midi_all_notes_off();
   }
@@ -56,5 +67,18 @@ export class MidiApi {
   destroy() {
     this.module._free(this.leftPtr);
     this.module._free(this.rightPtr);
+  }
+}
+
+export const PIANO_LOWEST_MIDI_NOTE = 21;
+export const PIANO_HIGHEST_MIDI_NOTE = 108;
+
+function assertPianoMidiNote(midiNote) {
+  if (
+    !Number.isInteger(midiNote) ||
+    midiNote < PIANO_LOWEST_MIDI_NOTE ||
+    midiNote > PIANO_HIGHEST_MIDI_NOTE
+  ) {
+    throw new RangeError("Piano MIDI note must be an integer from 21 (A0) to 108 (C8)");
   }
 }
