@@ -9,6 +9,8 @@ from typing import Iterable
 
 from extract_error_logs import ErrorLogEntry, extract_error_logs
 
+DEFAULT_OUTPUT = Path(".ai/REPORT.md")
+
 
 def _table_text(value: object) -> str:
     """Escape a value for a single Markdown table cell."""
@@ -59,10 +61,12 @@ def render_error_report(entries: Iterable[ErrorLogEntry]) -> str:
 
 
 def write_error_report(
-    log_paths: Iterable[Path | str], output_path: Path | str = "REPORT.md"
+    log_paths: Iterable[Path | str], output_path: Path | str = DEFAULT_OUTPUT
 ) -> Path:
     """Extract errors from *log_paths* and save their Markdown report."""
     output = Path(output_path)
+    if output == DEFAULT_OUTPUT:
+        output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(
         render_error_report(extract_error_logs(log_paths)), encoding="utf-8"
     )
@@ -75,7 +79,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("logs", nargs="+", type=Path, help="분석할 로그 파일")
     parser.add_argument(
-        "-o", "--output", type=Path, default=Path("REPORT.md"), help="출력 파일"
+        "-o", "--output", type=Path, default=DEFAULT_OUTPUT, help="출력 파일 (기본: .ai/REPORT.md, 기존 내용 덮어쓰기)"
     )
     args = parser.parse_args(argv)
 

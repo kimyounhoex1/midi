@@ -17,7 +17,7 @@ export function createPianoNotes() {
       midiNote,
       name: `${NOTE_NAMES[pitchClass]}${Math.floor(midiNote / 12) - 1}`,
       isWhiteKey,
-      whiteIndex: isWhiteKey ? whiteIndex++ : whiteIndex - 0.5,
+      whiteIndex: isWhiteKey ? whiteIndex++ : whiteIndex,
     });
   }
 
@@ -36,7 +36,7 @@ export function bindPianoKey(key, getApi) {
 
   key.addEventListener("pointerdown", (event) => {
     const api = getApi();
-    if (!api || activePointers.has(event.pointerId)) return;
+    if (!api || activePointers.size > 0) return;
 
     event.preventDefault();
     activePointers.add(event.pointerId);

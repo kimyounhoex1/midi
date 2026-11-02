@@ -189,6 +189,113 @@ h1 span {
   color: #d7dee8;
 }
 
+.chord-toolbar label {
+  align-self: center;
+  color: #d7dee8;
+}
+
+#play-chord.is-active {
+  background: #2563eb;
+}
+
+.recording-toolbar {
+  flex-wrap: wrap;
+}
+
+#record {
+  background: #b91c1c;
+}
+
+.recording-library,
+.piano-roll-panel {
+  margin: 18px 0;
+  padding: 14px;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.88);
+}
+
+.sequencer-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.sequencer-heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.recording-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.piano-roll-scroll {
+  overflow-x: auto;
+}
+
+.piano-roll {
+  position: relative;
+  height: 420px;
+  min-width: 720px;
+  overflow: hidden;
+  background-color: #111827;
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.11) 1px, transparent 1px);
+  background-size: 60px 100%, 100% calc(360px / 88);
+}
+
+.roll-chords {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 52px;
+  border-bottom: 1px solid #475569;
+}
+
+.roll-chord {
+  position: absolute;
+  top: 12px;
+  color: #fbbf24;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.roll-notes {
+  position: absolute;
+  inset: 52px 0 8px;
+}
+
+.roll-note {
+  position: absolute;
+  top: calc(var(--pitch) * (360px / 88));
+  height: max(4px, calc(360px / 88));
+  min-width: 4px;
+  overflow: hidden;
+  border: 1px solid #67e8f9;
+  border-radius: 2px;
+  background: #0891b2;
+  color: #ecfeff;
+  font-size: 9px;
+  line-height: 11px;
+  white-space: nowrap;
+}
+
+.playhead {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #fb7185;
+  box-shadow: 0 0 8px #fb7185;
+  pointer-events: none;
+}
+
 .piano-scroll {
   width: 100%;
   overflow-x: auto;
@@ -233,7 +340,7 @@ h1 span {
 .piano-key--black {
   position: absolute;
   z-index: 2;
-  left: calc((var(--white-index) + 1) * var(--white-key-width) - 10px);
+  left: calc(var(--white-index) * var(--white-key-width) - 10px);
   width: 20px;
   height: 118px;
   border: 1px solid #020617;

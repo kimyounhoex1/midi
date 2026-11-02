@@ -83,6 +83,24 @@ class GenerateErrorReportTests(unittest.TestCase):
         self.assertEqual(f"{output}\n", result.stdout)
         self.assertIn("오류 로그 분석 보고서", report)
 
+    def test_cli_default_output_is_inside_ai_directory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory_path = Path(directory)
+            log = directory_path / "application.log"
+            log.write_text("ERROR stopped\n", encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, str(ROOT / "scripts" / "generate_error_report.py"), str(log)],
+                cwd=directory_path,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            output = directory_path / ".ai" / "REPORT.md"
+            self.assertEqual(0, result.returncode, result.stderr)
+            self.assertEqual(".ai/REPORT.md\n", result.stdout)
+            self.assertIn("ERROR stopped", output.read_text(encoding="utf-8"))
+            self.assertFalse((directory_path / "REPORT.md").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

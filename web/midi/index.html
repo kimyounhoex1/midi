@@ -18,6 +18,60 @@
         <select id="instrument"><option value="piano">Piano</option></select>
         <button id="start">Start Audio</button>
       </div>
+      <div class="toolbar chord-toolbar" aria-label="코드 연주">
+        <label for="chord-root">Root</label>
+        <select id="chord-root">
+          <option>C</option><option>C#</option><option>D</option><option>D#</option>
+          <option>E</option><option>F</option><option>F#</option><option>G</option>
+          <option>G#</option><option>A</option><option>A#</option><option>B</option>
+        </select>
+        <label for="chord-octave">Octave</label>
+        <select id="chord-octave">
+          <option>0</option><option>1</option><option>2</option><option selected>3</option>
+          <option>4</option><option>5</option><option>6</option><option>7</option>
+        </select>
+        <label for="chord-type">Chord</label>
+        <select id="chord-type">
+          <option value="major">Major</option>
+          <option value="minor">Minor</option>
+          <option value="diminished">Diminished</option>
+          <option value="augmented">Augmented</option>
+          <option value="major7">Major 7</option>
+          <option value="dominant7">Dominant 7</option>
+          <option value="minor7">Minor 7</option>
+        </select>
+        <button id="play-chord" type="button">Hold to play</button>
+      </div>
+      <div class="toolbar recording-toolbar" aria-label="녹음 및 재생">
+        <button id="record" type="button">Record</button>
+        <button id="stop-recording" type="button">Stop Recording</button>
+        <button id="play-recording" type="button">Play</button>
+        <button id="stop-playback" type="button">Stop Playback</button>
+        <button id="clear-recording" type="button">Clear</button>
+        <button id="save-recording" type="button">Save JSON</button>
+        <button id="load-recording" type="button">Load JSON</button>
+        <input id="recording-file" type="file" accept="application/json,.json" hidden />
+      </div>
+      <section class="recording-library" aria-labelledby="recording-library-title">
+        <div class="sequencer-heading">
+          <h2 id="recording-library-title">Saved recordings</h2>
+          <button id="save-slot" type="button">Save to list</button>
+        </div>
+        <div id="recording-slots" class="recording-slots" aria-live="polite"></div>
+      </section>
+      <section class="piano-roll-panel" aria-labelledby="piano-roll-title">
+        <div class="sequencer-heading">
+          <h2 id="piano-roll-title">Piano roll</h2>
+          <span id="roll-summary">No recording loaded</span>
+        </div>
+        <div class="piano-roll-scroll">
+          <div id="piano-roll" class="piano-roll" aria-label="녹음 악보">
+            <div id="roll-chords" class="roll-chords"></div>
+            <div id="roll-notes" class="roll-notes"></div>
+            <div id="playhead" class="playhead" hidden></div>
+          </div>
+        </div>
+      </section>
       <div class="piano-scroll" aria-label="88건반 피아노">
         <div id="piano-keyboard" class="piano-keyboard"></div>
       </div>
